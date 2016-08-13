@@ -1,0 +1,9 @@
+[package]
+name = "word_collector"
+version = "0.1.0"
+authors = ["Dov Reshef <reshef.dov@gmail.com>"]
+
+[dependencies]
+hyper = "*"
+regex = "*"
+select = { git = "https://github.com/utkarshkukreti/select.rs.git" }
