@@ -1,5 +1,3 @@
-#![feature(question_mark)]
-
 extern crate hyper;
 extern crate select;
 extern crate regex;

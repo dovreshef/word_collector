@@ -78,7 +78,7 @@ impl Scraper {
         // find all words
         let ul = document.find(Class("mw-allpages-chunk")).next()
             .ok_or(error("failed to find words table in page", &self.path))?;
-        for li in ul.children().iter() {
+        for li in ul.children() {
             if let Some(a) = li.first_child() {
                 let word = a.text();
                 if re.is_match(&word) && word.chars().count() > 1 {
