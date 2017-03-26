@@ -5,5 +5,6 @@ authors = ["Dov Reshef <reshef.dov@gmail.com>"]
 
 [dependencies]
 hyper = "*"
+hyper-native-tls = "*"
 regex = "*"
 select = { git = "https://github.com/utkarshkukreti/select.rs.git" }

@@ -1,4 +1,6 @@
 use std::error::Error;
+use hyper_native_tls::NativeTlsClient;
+use hyper::net::HttpsConnector;
 use hyper::client::Client;
 use std::io::Read;
 use select::document::Document;
@@ -14,8 +16,7 @@ pub enum ScrapeStatus {
 
 impl<T> From<T> for ScrapeStatus where T: Error {
     fn from(err: T) -> ScrapeStatus {
-        let desc = err.description();
-        ScrapeStatus::Failed(desc.to_string())
+        ScrapeStatus::Failed(err.description().to_string())
     }
 }
 
@@ -29,11 +30,14 @@ pub struct Scraper {
 }
 
 impl Scraper {
-    pub fn new() -> Scraper {
+    pub fn new() -> Scraper {    
+        let ssl = NativeTlsClient::new().unwrap();
+        let connector = HttpsConnector::new(ssl);
+        let client = Client::with_connector(connector);
         Scraper { 
             domain: String::from("he.wiktionary.org"),
             path: String::from("/wiki/מיוחד:כל_הדפים/א"),
-            client: Client::new(),
+            client: client,
             words: Vec::new(),
             status: ScrapeStatus::NotStarted
         }
